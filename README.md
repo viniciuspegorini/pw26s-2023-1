@@ -34,7 +34,6 @@
 - Struts2
 - GWT 
 - EXTJs 
-- Node.js ----------- CATHULA PAMELA DE OLIVEIRA
 - MEAN 
 - Vaadin  
 - *.Net 
@@ -47,7 +46,7 @@
 - Grails 
 - Play 
 - Tapestry 
-- Flask ------------- VINICIUS CARON BRAUN
+
 - Pyramid
 - Wicket
 - TurboGears
@@ -59,17 +58,19 @@
 - Meteor 
 - React
 - React Native
-- Go ---------------- MARCELO FALCHI NAVARRO
-- Vue.js ------------ MARCO ANTONIO PEGORARO
 - Angular
-- Svelte ------------ GIOVANE ALEXANDRE WERLANG
 - SolidJS
 - Alpine.js
 - Lit
-- Cypress ----------- GUILHERME MINOZZI
+- Node.js ----------- CATHULA PAMELA DE OLIVEIRA
 - Quarkus + Kotling - ERICK ELIAS BORGES
+- Svelte ------------ GIOVANE ALEXANDRE WERLANG
+- Cypress ----------- GUILHERME MINOZZI
 - .Net + C# --------- LEONARDO DA SILVA MORENO
+- Go ---------------- MARCELO FALCHI NAVARRO
+- Vue.js ------------ MARCO ANTONIO PEGORARO
 - Node.js + Nest.js - MARCO ANTONIO ROZO
+- Flask ------------- VINICIUS CARON BRAUN
 
 1. [Deverá ser entregue] Desenvolver uma apresentação (PPT, PDF ou Readme.MD no git) sobre:
 - As vantagens e desvantagens da linguagem, framework e/ou plataforma. 
