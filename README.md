@@ -34,12 +34,12 @@
 - Struts2
 - GWT 
 - EXTJs 
-- Node.JS + Express 
+- Node.js ----------- CATHULA PAMELA DE OLIVEIRA
 - MEAN 
 - Vaadin  
 - *.Net 
 - Django 
-- Rubi on Rails 
+- Ruby on Rails 
 - ZendFramework 
 - YiiFramework 
 - CakePHP
@@ -47,7 +47,7 @@
 - Grails 
 - Play 
 - Tapestry 
-- Flask 
+- Flask ------------- VINICIUS CARON BRAUN
 - Pyramid
 - Wicket
 - TurboGears
@@ -59,13 +59,17 @@
 - Meteor 
 - React
 - React Native
-- Go 
-- Vue.js
+- Go ---------------- MARCELO FALCHI NAVARRO
+- Vue.js ------------ MARCO ANTONIO PEGORARO
 - Angular
-- Svelte
+- Svelte ------------ GIOVANE ALEXANDRE WERLANG
 - SolidJS
 - Alpine.js
 - Lit
+- Cypress ----------- GUILHERME MINOZZI
+- Quarkus + Kotling - ERICK ELIAS BORGES
+- .Net + C# --------- LEONARDO DA SILVA MORENO
+- Node.js + Nest.js - MARCO ANTONIO ROZO
 
 1. [Deverá ser entregue] Desenvolver uma apresentação (PPT, PDF ou Readme.MD no git) sobre:
 - As vantagens e desvantagens da linguagem, framework e/ou plataforma. 
