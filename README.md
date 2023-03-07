@@ -27,6 +27,15 @@
 
 ## Projetos:
 
+### aula1
+- Revisão do conteúdo da disciplina Programação para Web - PW25S.
+
+### aula2
+- Admininstração das aplicações com Spring Boot Admin e log.
+
+### aula3
+- Adição de permissões de usuário.
+
 # Avaliação da disciplina:
 
 ## Seminário
