@@ -60,6 +60,8 @@ public class WebSecurity {
                         "/v2/api-docs",
                         "/webjars/**").permitAll()
 
+                .antMatchers("/actuator/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(authenticationManager)

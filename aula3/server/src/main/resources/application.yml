@@ -31,17 +31,24 @@ spring:
     admin:
       client:
         url: http://localhost:8081
+        instance:
+          service-host-type: ip
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  endpoint:
+    health:
+      show-details: always
   info:
     env:
       enabled: true
 logging:
   file:
     name: application.log
+server:
+  port: 8082
 ---
 spring:
   config:
