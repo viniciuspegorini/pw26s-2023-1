@@ -36,6 +36,9 @@
 ### aula3
 - Adição de permissões de usuário.
 
+### aula4
+- Autenticação e autorização com validações das permissões no lado cliente e adição da Context API.
+
 # Avaliação da disciplina:
 
 ## Seminário

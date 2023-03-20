@@ -61,6 +61,10 @@ public class WebSecurity {
                         "/webjars/**",
                         "/actuator/**").permitAll()
 
+                .antMatchers("/products/**").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/categories/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/categories/**").hasAnyRole("ADMIN")
+
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(authenticationManager)
