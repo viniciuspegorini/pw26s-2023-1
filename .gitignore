@@ -8,7 +8,7 @@
 **/dist/
 **/build/
 **/target/
-**/lib/
+#**/lib/
 **/node_modules/
 
 #Databases 

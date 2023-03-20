@@ -32,9 +32,6 @@ export function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/categories" element={<CategoryListPage />} />
-
-          
-
           <Route path="/categories/new" element={<CategoryFormPage />} />
           <Route path="/categories/:id" element={<CategoryFormPage />} />
           <Route path="/products" element={<ProductListPage />} />
