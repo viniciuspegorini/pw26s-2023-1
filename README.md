@@ -39,6 +39,12 @@
 ### aula4
 - Autenticação e autorização com validações das permissões no lado cliente e adição da Context API.
 
+### aula5
+- Autenticação utilizando o Google - lado cliente.
+
+### aula6
+- Autenticação utilizando o Google - lado servidor.
+
 # Avaliação da disciplina:
 
 ## Seminário
