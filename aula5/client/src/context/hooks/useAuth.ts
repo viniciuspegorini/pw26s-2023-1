@@ -27,21 +27,7 @@ export function useAuth() {
   }, []);
 
   async function handleLoginSocial(idToken: string) {
-    setLoading(true);
-    api.defaults.headers.common["Auth-Id-Token"] = `Bearer ${idToken}`;
-    const response = await api.post("/auth-social");
-    console.log(response);
-    setLoading(false);    
-    api.defaults.headers.common["Auth-Id-Token"] = "";
-    localStorage.setItem("token", JSON.stringify(response.data.token));
-    localStorage.setItem("user", JSON.stringify(response.data.user));
-    api.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${response.data.token}`;
-    
-    setAuthenticatedUser(response.data.user);
-    setAuthenticated(true);
-    navigate("/");
+
   }
 
   function handleLogout() {

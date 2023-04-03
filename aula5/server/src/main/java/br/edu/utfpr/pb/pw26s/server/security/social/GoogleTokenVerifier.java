@@ -7,6 +7,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @Component
+@Slf4j
 public class GoogleTokenVerifier {
 
     private static final HttpTransport transport = new NetHttpTransport();
@@ -28,26 +30,6 @@ public class GoogleTokenVerifier {
 
     private static Payload verifyToken(String idTokenString)
             throws GeneralSecurityException, IOException {
-        final GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.
-                Builder(transport, jsonFactory)
-                .setIssuers(Arrays.asList("https://accounts.google.com", "accounts.google.com"))
-                .setAudience(Collections.singletonList(CLIENT_ID))
-                .build();
-
-        //System.out.println("validating:" + idTokenString);
-
-        GoogleIdToken idToken = null;
-        try {
-            idToken = verifier.verify(idTokenString);
-        } catch (IllegalArgumentException e){
-            // means token was not valid and idToken
-            // will be null
-        }
-
-        if (idToken == null) {
-            throw new RuntimeException("idToken is invalid");
-        }
-
-        return idToken.getPayload();
+        return null;
     }
 }
