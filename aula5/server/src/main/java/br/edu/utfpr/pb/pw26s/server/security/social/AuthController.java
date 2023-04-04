@@ -12,8 +12,11 @@ import br.edu.utfpr.pb.pw26s.server.service.AuthService;
 import br.edu.utfpr.pb.pw26s.server.service.UserService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,7 @@ import java.util.HashSet;
 
 @RestController
 @RequestMapping("auth-social")
+@Slf4j
 public class AuthController {
 
     private final GoogleTokenVerifier googleTokenVerifier;
@@ -47,6 +51,44 @@ public class AuthController {
 
     @PostMapping
     public ResponseEntity<AuthenticationResponse> auth(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+        String idToken = request.getHeader("Auth-Id-Token");
+        if (idToken != null) {
+            final Payload payload;
+            try {
+                payload = googleTokenVerifier.verify(
+                        idToken.replace(SecurityConstants.TOKEN_PREFIX, "") );
+                if (payload != null) {
+                    String username = payload.getEmail();
+
+                    User user = userRepository.findByUsername(username);
+                    if (user == null) {
+                        user = new User();
+                        user.setUsername(username);
+                        user.setDisplayName( (String) payload.get("name"));
+                        user.setPassword("P4ssword");
+                        user.setProvider(AuthProvider.google);
+                        user.setUserAuthorities( new HashSet<>() );
+                        user.getUserAuthorities().add(
+                                authorityRepository.findByAuthority("ROLE_USER")
+                        );
+                        userService.save(user);
+                    }
+                    String token = JWT.create()
+                            .withSubject( username  )
+                            .withExpiresAt(
+                                    new Date(System.currentTimeMillis() +
+                                    SecurityConstants.EXPIRATION_TIME
+                                    ))
+                            .sign(Algorithm.HMAC512(SecurityConstants.SECRET));
+
+                    return ResponseEntity.ok(
+                            new AuthenticationResponse(token, new UserResponseDTO(user)));
+
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 }

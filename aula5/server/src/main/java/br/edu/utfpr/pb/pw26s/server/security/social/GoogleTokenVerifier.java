@@ -30,6 +30,22 @@ public class GoogleTokenVerifier {
 
     private static Payload verifyToken(String idTokenString)
             throws GeneralSecurityException, IOException {
-        return null;
+        final GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
+                                    .Builder(transport, jsonFactory)
+                                        .setIssuers(Arrays.asList("https://accounts.google.com",
+                                                "accounts.google.com"))
+                                        .setAudience(Collections.singletonList(CLIENT_ID))
+                                        .build();
+        log.info("Validating token: {}", idTokenString);
+        GoogleIdToken idToken = null;
+        try {
+          idToken = verifier.verify(idTokenString);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        if (idToken == null) {
+            throw new RuntimeException("Google idToken is invalid.");
+        }
+        return idToken.getPayload();
     }
 }
