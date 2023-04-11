@@ -43,4 +43,25 @@ public class ProductController extends CrudController<Product, ProductDto, Long>
         return this.modelMapper;
     }
 
+    /* Upload de arquivo salvo no sistema de arquivos
+
+    formData = { product:{}, image:"arquivo"}
+     */
+    @PostMapping("upload-a")
+    public Product save(@RequestPart("product") @Valid Product product,
+                        @RequestPart("image") MultipartFile file) {
+        getService().save(product);
+        productService.saveImage(file, product);
+        return product;
+    }
+
+    // Upload de arquivo salvo no Banco de dados
+    @PostMapping("upload-b")
+    public Product saveImageFile(@RequestPart("product") @Valid Product product,
+                                 @RequestPart("image") MultipartFile file) {
+        getService().save(product);
+        productService.saveImageFile(file, product);
+        return product;
+    }
+
 }

@@ -94,6 +94,9 @@ export function ProductFormPage() {
   };
 
   // Tratamento da seleção de um arquivo
+  const onFileChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setImage(event.target.files ? event.target.files[0] : null);
+  }
 
   const onSubmit = () => {
     const product: Product = {
@@ -104,8 +107,14 @@ export function ProductFormPage() {
       category: { id: form.category, name: "" },
     };
     setPendingApiCall(true);
+    let formData = new FormData();
+    formData.append('image', image); 
+
+    const productJSON = new Blob([JSON.stringify(product)], 
+        {type: 'application/json'});
+    formData.append('product', productJSON);
        
-    ProductService.save()
+    ProductService.save(formData)
       .then((response) => {
         setPendingApiCall(false);
         navigate("/products");
@@ -182,7 +191,16 @@ export function ProductFormPage() {
       </div>            
       <div className="col-12 mb-3">
         <label>Imagem</label>
-        <input  />        
+        <input  
+          className="form-control"
+          type="file"
+          name="image"
+          onChange={onFileChangeHandler}
+        />        
+        {(form.imageFile &&
+        <img style={{width:'100px', height:'100px'}} 
+          src={`data:image;base64,${form.imageFile}`} />
+        )}
       </div>
       <div className="text-center">
         <ButtonWithProgress
