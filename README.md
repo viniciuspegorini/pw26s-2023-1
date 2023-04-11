@@ -31,19 +31,25 @@
 - Revisão do conteúdo da disciplina Programação para Web - PW25S.
 
 ### aula2
-- Admininstração das aplicações com Spring Boot Admin e log.
+- Admininstração das aplicações com Spring Boot Admin e registro de Log.
 
 ### aula3
-- Adição de permissões de usuário.
+- Adição de permissões de usuário. Criação de uma classe para representar as permissões de usuário e associação da mesma na entidade de usuário.
 
 ### aula4
 - Autenticação e autorização com validações das permissões no lado cliente e adição da Context API.
 
 ### aula5
-- Autenticação utilizando o Google - lado cliente.
+- **Autenticação utilizando o Google - lado cliente**. Criação da conta no Google Cloud Console e uso das credenciais na aplicação cliente para autenticação (retorno do idToken pelo Google) e na aplicação servidor para validação do idToken.
 
 ### aula6
-- Autenticação utilizando o Google - lado servidor.
+- **Autenticação utilizando o Google - lado servidor**. Criação da conta no Google Cloud Console e uso das credenciais na aplicação servidor para autenticação (retorno do idToken pelo Google).
+
+### aula7
+- Upload de arquivos com armazenamento em **Banco de dados** e em Disco no **Sistema de arquivos**.
+
+### aula8
+- Upload de arquivos com armazenamento em um **sistema de armazenamento de objetos** utilizando **MINIO** (sistema de armazenamento de objetos **semelhante ao Amazon S3**).
 
 # Avaliação da disciplina:
 
@@ -109,5 +115,5 @@
 	- 10/04/2023 à 18/04/2023.
 	
 ## Trabalho final em conjunto com a disciplina de oficina:
-	- Participação no desenvolvimento do back-end da aplicação
-	- Participação no desenvolvimento do front-end da aplicação
+	- Participação no desenvolvimento do *back-end* da aplicação
+	- Participação no desenvolvimento do *front-end* da aplicação
