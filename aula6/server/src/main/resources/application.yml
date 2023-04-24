@@ -39,7 +39,6 @@ spring:
             scope:
               - email
               - profile
-
 ---
 spring:
   config:
