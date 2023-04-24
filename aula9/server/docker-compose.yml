@@ -15,6 +15,7 @@ services:
       - POSTGRES_DB=${DATABASE_NAME}
     networks:
       - database
+      - web
     restart: unless-stopped
   ########################### MINIO
   minio:

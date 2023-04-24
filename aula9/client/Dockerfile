@@ -10,4 +10,5 @@ RUN npm run build
 # DIST
 FROM nginx:stable-alpine
 COPY --from=build-step /app/dist /usr/share/nginx/html
+COPY default-custom.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]

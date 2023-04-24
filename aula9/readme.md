@@ -81,7 +81,7 @@ ENTRYPOINT ["java", "-jar", "server.jar"]
 ```
 Pode-se considerar o arquivo é dividido em duas partes, a primeira com o estágio de *Build* da aplicação e a segunda parte com a construção da imagem. Com as configurações da imagem criada é possível executar a criação do contêiner, entretanto, para tornar melhor o gerenciamento da criação será utilizado um arquivo do tipo docker-compose. Assim, não precisamos passar as configurações do contêiner por parâmetro no comando docker e sim armazenamos as configurações no arquivo docker-compose.
 
-Além dos dados para criação da imagem da aplicação **server** também serão criados os serviços do **PostgreSQL** e **Minio**.
+Além dos dados para criação da imagem da aplicação **server** também serão criados os serviços do **PostgreSQL** e **Minio**, como pode ser observado no aquivo **docker-compose.yml** que é apresentado abaixo:
 
 ```yml
 version: "3.9"
@@ -151,7 +151,135 @@ networks:
     external: false
     attachable: true
 ```
+Antes de executar o arquivo para criação dos serviços é necessário realizar algumas configurações no arquivo **docker-compose.yml** é possível observar algumas variáveis de ambiente necessárias para as aplicações funcionarem, por exemplo o usuário e senha do PostgreSQL (*\${DATABASE_USERNAME}* e *\${DATABASE_PASSWORD}*), o nome do banco de dados, a URL da conexão com o banco, a porta em que a aplicação server será executada, entre outras. Para essas configurações será criado um arquivo `.env` na raiz da aplicação. As variáveis adicionadas no arquivo *.env* serão importados pelo docker compose ao configurar o ambiente em que será executada a aplicação. Bastando adicionar as configurações no arquivo de propriedades da aplicação server.
+
+Inicialmente será adicionada as bibliotecas contendo o *driver* do PostgreSQL e a dependência para uso das variáveis do arquivo *.env* dentro da aplicaçao **server**. Essas modificações foram realizadas no arquivo **pom.xml** conforme exemplo abaixo:
+
+```xml
+<!-- ... -->
+<dependencies>
+	<dependency>  
+	   <groupId>org.postgresql</groupId>  
+	   <artifactId>postgresql</artifactId>  
+	   <scope>runtime</scope>  
+	</dependency>  
+	<dependency>  
+	   <groupId>me.paulschwarz</groupId>  
+	   <artifactId>spring-dotenv</artifactId>  
+	   <version>3.0.0</version>  
+	</dependency>
+</dependencies>
+<!-- ... -->
+```
+
+O próximo passo é utilizar as variáveis de ambiente dentro de arquivo de configurações da aplicação **server**. Para isso, o arquivo `application.yml` foi alterado utilizando o formato `${NOME_VARIAVEL:VALOR_DEFAULT}`, em que `NOME_VARIAVEL` é o valor adicionado no arquivo `.env` e `VALOR_DEFAULT` é o valor que será utilizado na ausência do arquivo `.env` ou da variável no arquivo. O arquivo `application.yml` é apresentado a seguir:
+
+```yml
+server:  
+  port: ${SERVER_PORT:8080}  
+spring:  
+  profiles:  
+    active: ${SPRING_PROFILES_ACTIVE:dev}  
+  jpa:  
+    properties:  
+      javax:  
+        persistence:  
+          validation:  
+            mode: none  
+      hibernate:  
+        format_sql: false  
+    show-sql: true  
+ data:  
+      web:  
+        pageable:  
+          default-page-size: 10  
+          max-page-size: 100  
+  flyway:  
+    baseline-on-migrate: true  
+ mvc:  
+    pathmatch:  
+      matching-strategy: ant_path_matcher  
+  boot:  
+    admin:  
+      client:  
+        url: http://localhost:8081  
+management:  
+  endpoints:  
+    web:  
+      exposure:  
+        include: "*"  
+  info:  
+    env:  
+      enabled: true  
+logging:  
+  file:  
+    name: application.log  
+minio:  
+  endpoint: ${MINIO_ENDPOINT:http://127.0.0.1:9000}  
+  port: ${MINIO_PORT:9000}  
+  accessKey: ${MINIO_ACCESS_KEY:minioadmin} #Login Account  
+  secretKey: ${MINIO_SECRET_KEY:minioadmin} # Login Password  
+  secure: ${MINIO_SECURE:false}  
+  bucket-name: ${MINIO_BUCKET_NAME:commons} # Bucket Name  
+  image-size: 10485760 #  Maximum size of picture file  
+  file-size: 104857600 #  Maximum file size  
+---  
+spring:  
+  config:  
+    activate:  
+      on-profile: prod  
+  datasource:  
+    url: ${DATABASE_URL:jdbc:postgresql://postgresql:5432/pw26s}  
+    username: ${DATABASE_USERNAME:postgres}  
+    password: ${DATABASE_PASSWORD:postgres}  
+    driver-class-name: org.postgresql.Driver  
+  jpa:  
+    hibernate:  
+      ddl-auto: none  
+  flyway:  
+    locations: classpath:/db/prod  
+---  
+spring:  
+  config:  
+    activate:  
+      on-profile: dev  
+  datasource:  
+    url: jdbc:h2:mem:pw26s-dev  
+    generate-unique-name: false  
+ h2:  
+    console:  
+      enabled: true  
+ path: /h2-console  
+  jpa:  
+    hibernate:  
+      ddl-auto: none  
+  flyway:  
+    locations: classpath:/db/dev  
+---  
+spring:  
+  config:  
+    activate:  
+      on-profile: test  
+  jpa:  
+    hibernate:  
+      ddl-auto: create-drop  
+  flyway:  
+    locations: classpath:/db/test
+```
+Por fim, é apresentado o conteúdo do arquivo `.env`:
+
+```properties
+SERVER_PORT=8080  
+SPRING_PROFILES_ACTIVE=prod  
+DATABASE_URL=jdbc:postgresql://postgresql:5432/pw26s  
+DATABASE_NAME=pw26s  
+DATABASE_USERNAME=postgres  
+DATABASE_PASSWORD=postgres  
+GOOGLE_CLIENT_ID=310109923674-la5thl4s4t0b2ajp6acdhq7tra74dn31.apps.googleusercontent.com
+```
+
 Com a configuração apresentada, para executar a criação dos serviços, basta executar no terminal:
+
 ```cmd
 docker compose up -d --build
 ```
@@ -160,6 +288,7 @@ ou, na versão antiga do *compose*:
 docker-compose up -d --build
 ```
 Com isso será gerado um serviço para o **PostgreSQL** executando na porta `5432`, um serviço para o **Minio** executando nas portas `9000` e `9001` para o console. E, a aplicação **server** será executada na porta `8080`. Já é possível fazer requisições HTTP para: `http://ip_do_servidor:8080`.
+
 
 
 ## Criando os arquivos Docker e Docker-compose para o *deploy* da aplicação Client
