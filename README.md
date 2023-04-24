@@ -51,6 +51,10 @@
 ### aula8
 - Upload de arquivos com armazenamento em um **sistema de armazenamento de objetos** utilizando **MINIO** (sistema de armazenamento de objetos **semelhante ao Amazon S3**).
 
+### aula9
+- Deploy de aplicações utilizando Docker.
+
+
 # Avaliação da disciplina:
 
 ## Seminário
