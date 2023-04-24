@@ -31,6 +31,8 @@ Para instalar o serviço basta abrir o terminar/cmd e executar o comando:
 docker-compose up -d --build
 ```
 Será criado o serviço, para testar basta acessar o endereço: `http://localhost:9001`. Agora será possível armazenar e bucar arquivos no serviço de armazenamento.
+
+A apresentação das alterações nas aplicações **cliente** (Cliente em React) e servidor (Server - Api REST desenvolvida com o Spring Framework) para consumir o serviço de armazenamento do Minio estão descritas nos arquivos `README.MD` das pastas **client** e **server**.
  
 ## Referências
 [1] Minio [https://github.com/minio/minio](https://github.com/minio/minio). Acessado em: 10/04/2023.

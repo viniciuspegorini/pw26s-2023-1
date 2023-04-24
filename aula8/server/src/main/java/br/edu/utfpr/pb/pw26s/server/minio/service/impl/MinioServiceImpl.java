@@ -28,7 +28,9 @@ public class MinioServiceImpl implements MinioService {
 
     @SneakyThrows
     @Override
-    public FileResponse putObject(MultipartFile multipartFile, String bucketName, String fileType) {
+    public FileResponse putObject(MultipartFile multipartFile,
+                                  String bucketName,
+                                  String fileType) {
         try {
             bucketName = StringUtils.isNotBlank(bucketName) ? bucketName : minioProperties.getBucketName();
             if (!this.bucketExists(bucketName)) {

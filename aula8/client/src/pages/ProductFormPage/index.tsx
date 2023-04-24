@@ -206,6 +206,7 @@ export function ProductFormPage() {
           onClick={onSubmit}
           disabled={pendingApiCall ? true : false}
           pendingApiCall={pendingApiCall}
+          
           text="Salvar"
         />
       </div>
