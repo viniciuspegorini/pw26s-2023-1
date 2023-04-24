@@ -10,6 +10,8 @@
 **/target/
 #**/lib/
 **/node_modules/
+**/data/
+**/pgdata/
 
 #Databases 
 **/server/postgres-data/
