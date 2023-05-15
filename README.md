@@ -54,6 +54,9 @@
 ### aula9
 - Deploy de aplicações utilizando Docker.
 
+### aula10
+- Consultas na API com Spring Data JPA e Specification.
+
 
 # Avaliação da disciplina:
 
